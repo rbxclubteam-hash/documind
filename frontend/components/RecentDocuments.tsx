@@ -76,7 +76,7 @@ export default function RecentDocuments({ refreshKey }: { refreshKey: number }) 
                     </span>
                     <DocumentTypeBadge type={doc.document_type} />
                   </span>
-                  <span className="mt-0.5 block line-clamp-2 text-xs text-slate-500">
+                  <span className="mt-0.5 line-clamp-2 text-xs text-slate-500">
                     {doc.summary || "No summary available."}
                   </span>
                 </span>

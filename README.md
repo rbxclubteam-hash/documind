@@ -36,10 +36,7 @@ and the tests use, and it is not real AI.
 `OPENAI_API_KEY` and `OPENAI_MODEL` and returns the exact same normalized analysis
 contract as the demo analyzer. There is no fallback chain and no other providers.
 
-## Local run (placeholder)
-
-The `backend/` and `frontend/` build contexts are added by their respective feature
-branches; this repository currently contains only the shared foundation.
+## Local run
 
 ```bash
 cp .env.example .env
@@ -49,3 +46,16 @@ docker compose up --build
 - Frontend: http://localhost:3001
 - Backend: http://localhost:8001
 - Health: http://localhost:8001/health
+
+The backend container applies Alembic migrations before starting the API. To run only
+the backend stack while frontend work is in progress:
+
+```bash
+docker compose up --build db backend
+```
+
+The API exposes exactly `GET /health`, `POST /api/documents`, `GET /api/documents`, and
+`GET /api/documents/{id}`. Uploads use multipart field `file` and accept text-based PDF
+or DOCX files up to 10 MB. The default `demo` analyzer is deterministic and offline.
+Select the optional OpenAI implementation explicitly with `ANALYZER_MODE=openai`,
+`OPENAI_API_KEY`, and `OPENAI_MODEL`; it never falls back silently to demo mode.
